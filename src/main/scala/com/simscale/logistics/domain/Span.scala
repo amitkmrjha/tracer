@@ -40,14 +40,14 @@ object Span {
   def toJsonLogEntry(logs:List[LogEntry]):String = {
     getRootEntry(logs) match {
       case Some(rootE) =>processTree(rootE,logs)
-      case None => OrphanTrace(logs.head.trace).asJson.toString()
+      case None => OrphanTrace(logs.head.trace).asJson.noSpaces.toString()
     }
   }
 
 
  private def processTree(root:LogEntry, logs:List[LogEntry]):String = {
    link(root,logs) match{
-     case Some(s) => ValidTrace(root.trace,s).asJson.toString()
+     case Some(s) => ValidTrace(root.trace,s).asJson.noSpaces.toString()
      case None => s"Unable to determine trace path for ${root.trace}"
    }
   }
